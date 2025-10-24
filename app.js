@@ -50,8 +50,16 @@ function initSender() {
 
             // Get screen stream
             localStream = await navigator.mediaDevices.getDisplayMedia({
-                video: { cursor: 'always', displaySurface: 'window' },
-                audio: false
+              video: {
+                cursor: 'always',
+                displaySurface: 'window',
+                frameRate: {
+                  min: 30,
+                  max: 60
+                }
+              },
+
+              audio: false
             });
 
             localStream.getVideoTracks()[0].addEventListener('ended', () => {
