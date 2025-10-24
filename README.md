@@ -1,6 +1,6 @@
-# Screen Share Project
+# Toilet Viewer
 
-Welcome to the Screen Share Project! This is a simple peer-to-peer screen-sharing application built using HTML, JavaScript, and WebRTC with PeerJS. It allows you to share your screen from a sender device and view it on a separate viewer device via a QR code.
+Welcome to the AI Slop Project! This is a simple peer-to-peer screen-sharing application built using HTML, JavaScript, and WebRTC with PeerJS. It allows you to share your screen from a sender device and view it on a separate viewer device via a QR code.
 
 ## Features
 - Share your screen from a desktop or laptop.
