@@ -53,10 +53,7 @@ function initSender() {
               video: {
                 cursor: 'always',
                 displaySurface: 'window',
-                frameRate: {
-                  min: 30,
-                  max: 60
-                }
+                frameRate: 60
               },
 
               audio: false
