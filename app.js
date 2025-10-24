@@ -115,7 +115,10 @@ function initSender() {
     }
 
     function displayQRCode(peerId) {
-        const viewerUrl = `${window.location.origin}/viewer.html?view=${peerId}`;
+        // Use the full GitHub Pages URL with the repository name
+        const repoName = window.location.pathname.split('/')[1]; // Extracts 'your-repo' from the path
+        const baseUrl = window.location.origin + (repoName ? '/' + repoName : '');
+        const viewerUrl = `${baseUrl}/viewer.html?view=${peerId}`;
         document.getElementById('qrcode').innerHTML = '';
         new QRCode(document.getElementById('qrcode'), {
             text: viewerUrl,
@@ -127,7 +130,6 @@ function initSender() {
         });
         document.getElementById('viewerUrl').textContent = viewerUrl;
     }
-
     function showStatus(message, type) {
         statusMessage.innerHTML = `<div class="status ${type}">${message}</div>`;
     }
