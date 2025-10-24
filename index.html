@@ -133,6 +133,17 @@
             color: #f57c00;
         }
 
+        .connected-counter {
+            text-align: center;
+            padding: 10px;
+            background: #e8f5e9;
+            color: #388e3c;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: 500;
+            font-size: 1em;
+        }
+
         .hidden {
             display: none;
         }
@@ -172,6 +183,7 @@
                 <div class="section-title">Scan with your phone:</div>
                 <div id="qrcode"></div>
                 <div class="viewer-url" id="viewerUrl"></div>
+                <div id="connectedCounter" class="connected-counter">Connected viewers: 0</div>
             </div>
 
             <div id="statusMessage"></div>

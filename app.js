@@ -39,10 +39,12 @@ function initSender() {
     const stopBtn = document.getElementById('stopBtn');
     const qrcodeSection = document.getElementById('qrcodeSection');
     const statusMessage = document.getElementById('statusMessage');
+    const connectedCounter = document.getElementById('connectedCounter');
 
     let peer = null;
     let localStream = null;
     let viewerPeerId = null;
+    let connectedPeers = new Set(); // Track connected viewer IDs
 
     startBtn.addEventListener('click', async () => {
         try {
@@ -55,7 +57,6 @@ function initSender() {
                 displaySurface: 'window',
                 frameRate: 60
               },
-
               audio: false
             });
 
@@ -74,6 +75,7 @@ function initSender() {
                 startBtn.classList.add('hidden');
                 stopBtn.classList.remove('hidden');
                 qrcodeSection.classList.remove('hidden');
+                updateConnectedCounter();
             });
 
             peer.on('connection', (conn) => {
@@ -82,7 +84,14 @@ function initSender() {
                     conn.on('data', (data) => {
                         viewerPeerId = data;
                         console.log('Received viewer peer ID:', viewerPeerId);
+                        connectedPeers.add(viewerPeerId); // Add viewer to connected peers
+                        updateConnectedCounter();
                         initiateCallToViewer();
+                    });
+                    conn.on('close', () => {
+                        console.log('Data connection closed for viewer:', conn.peer);
+                        connectedPeers.delete(conn.peer); // Remove viewer from connected peers
+                        updateConnectedCounter();
                     });
                 });
             });
@@ -112,6 +121,8 @@ function initSender() {
             peer = null;
         }
         viewerPeerId = null;
+        connectedPeers.clear(); // Clear all connected peers
+        updateConnectedCounter();
         startBtn.classList.remove('hidden');
         stopBtn.classList.add('hidden');
         qrcodeSection.classList.add('hidden');
@@ -135,8 +146,13 @@ function initSender() {
         });
         document.getElementById('viewerUrl').textContent = viewerUrl;
     }
+
     function showStatus(message, type) {
         statusMessage.innerHTML = `<div class="status ${type}">${message}</div>`;
+    }
+
+    function updateConnectedCounter() {
+        connectedCounter.textContent = `Connected viewers: ${connectedPeers.size}`;
     }
 
     function initiateCallToViewer() {
