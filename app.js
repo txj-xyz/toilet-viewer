@@ -1,21 +1,10 @@
 // Configuration - using PeerJS cloud server with reduced STUN/TURN servers
 const PEERJS_CONFIG = {
     host: '0.peerjs.com',
-    secure: true,
+    secure: false,
     port: 443,
     path: '/',
-    debug: 2,
-    config: {
-        iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' }, // Single STUN
-            {
-                urls: 'turn:openrelay.metered.ca:443',
-                username: 'openrelayproject',
-                credential: 'openrelayproject' // Single TURN
-            }
-        ],
-        iceCandidatePoolSize: 5 // Reduced from 10
-    }
+    debug: 2
 };
 
 // Check if this is sender or viewer
